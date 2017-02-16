@@ -60,7 +60,7 @@ class AdminController extends Controller
 
         $emails = $query->paginate(config('mail-tracker.emails-per-page'));
 
-        return \View('emailTrakingViews::index')->with('emails', $emails);
+        return \View('emailTrackingViews::index')->with('emails', $emails);
     }
 
     /**
@@ -71,7 +71,7 @@ class AdminController extends Controller
     public function getShowEmail($id)
     {
         $email = SentEmail::where('id',$id)->first();
-        return \View('emailTrakingViews::show')->with('email', $email);
+        return \View('emailTrackingViews::show')->with('email', $email);
     }
 
     /**
@@ -85,7 +85,7 @@ class AdminController extends Controller
         if(!$detalle) {
             return back();
         }
-        return \View('emailTrakingViews::url_detail')->with('details', $detalle);
+        return \View('emailTrackingViews::url_detail')->with('details', $detalle);
     }
 
     /**
@@ -99,6 +99,6 @@ class AdminController extends Controller
         if(!$detalle) {
             return back();
         }
-        return \View('emailTrakingViews::smtp_detail')->with('details', $detalle);
+        return \View('emailTrackingViews::smtp_detail')->with('details', $detalle);
     }
 }
