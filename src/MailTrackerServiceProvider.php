@@ -90,9 +90,9 @@ class MailTrackerServiceProvider extends ServiceProvider
     protected function publishViews()
     {
         if (!$this->isLumen()) {
-            $this->loadViewsFrom(__DIR__.'/views', 'emailTrakingViews');
+            $this->loadViewsFrom(__DIR__.'/views', 'emailTrackingViews');
             $this->publishes([
-                __DIR__.'/views' => base_path('resources/views/vendor/emailTrakingViews'),
+                __DIR__.'/views' => base_path('resources/views/vendor/emailTrackingViews'),
                 ]);
         }
     }
