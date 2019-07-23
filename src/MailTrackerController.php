@@ -61,10 +61,8 @@ class MailTrackerController extends Controller
                 ]);
             }
             Event::dispatch(new LinkClickedEvent($tracker));
-
-            return redirect($url);
         }
 
-        throw new BadUrlLink('Mail hash: '.$hash);
+        return redirect($url);
     }
 }
