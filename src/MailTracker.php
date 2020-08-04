@@ -2,7 +2,7 @@
 
 namespace jdavidbakr\MailTracker;
 
-use Event;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use jdavidbakr\MailTracker\Model\SentEmail;
 use jdavidbakr\MailTracker\Events\EmailSentEvent;
@@ -29,7 +29,7 @@ class MailTracker implements \Swift_Events_SendListener
     public function sendPerformed(\Swift_Events_SendEvent $event)
     {
         // If this was sent through SES, retrieve the data
-        if (config('mail.driver') == 'ses') {
+        if ((config('mail.default') ?? config('mail.driver')) == 'ses') {
             $message = $event->getMessage();
             $this->updateSesMessageId($message);
         }
@@ -66,7 +66,7 @@ class MailTracker implements \Swift_Events_SendListener
         // Append the tracking url
         $tracking_pixel = '<img border=0 width=1 alt="" height=1 src="'.route('mailTracker_t', [$hash]).'" />';
 
-        $linebreak = Str::random(32);
+        $linebreak = app(Str::class)->random(32);
         $html = str_replace("\n", $linebreak, $html);
 
         if (preg_match("/^(.*<body[^>]*>)(.*)$/", $html, $matches)) {
@@ -101,14 +101,20 @@ class MailTracker implements \Swift_Events_SendListener
         }
 
         return $matches[1].route(
-            'mailTracker_l',
+            'mailTracker_n',
             [
-                MailTracker::hash_url($url),
-                $this->hash
+                'l' => $url,
+                'h' => $this->hash
             ]
         );
     }
 
+    /**
+     * Legacy function
+     *
+     * @param [type] $url
+     * @return boolean
+     */
     public static function hash_url($url)
     {
         // Replace "/" with "$"
@@ -133,7 +139,7 @@ class MailTracker implements \Swift_Events_SendListener
                     continue;
                 }
                 do {
-                    $hash = Str::random(32);
+                    $hash = app(Str::class)->random(32);
                     $used = SentEmail::where('hash', $hash)->count();
                 } while ($used > 0);
                 $headers->addTextHeader('X-Mailer-Hash', $hash);
