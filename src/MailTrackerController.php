@@ -61,9 +61,9 @@ class MailTrackerController extends Controller
         if ($tracker) {
             RecordLinkClickJob::dispatch($tracker, $url)
                 ->onQueue(config('mail-tracker.tracker-queue'));
-            return redirect($url);
         }
 
-        throw new BadUrlLink('Mail hash: '.$hash);
+        // Redirect no matter what as emails may not always exist
+        return redirect($url);
     }
 }
