@@ -9,6 +9,7 @@ php:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
 
 env:
     - LARAVEL_VERSION=7.0.*
@@ -17,7 +18,6 @@ before_install:
     - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
     - phpenv config-rm xdebug.ini
-    - composer global require hirak/prestissimo --update-no-dev
     - composer require "laravel/framework:${LARAVEL_VERSION}" --no-update --prefer-dist
 
 install: travis_retry composer install --no-interaction --prefer-dist

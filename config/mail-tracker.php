@@ -71,6 +71,15 @@ return [
     /**
      * Determines whether or not the body of the email is logged in the sent_emails table
      */
-    'log-content' => true
+    'log-content' => true,
 
+    /**
+     * What queue should we dispatch our tracking jobs to?  Null will use the default queue.
+     */
+    'tracker-queue' => null,
+
+    /**
+     * Size limit for content length stored in database
+     */
+    'content-max-size' => 65535,
 ];
