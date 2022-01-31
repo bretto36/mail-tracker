@@ -9,14 +9,12 @@
     "minimum-stability": "dev",
     "homepage": "https://github.com/jdavidbakr/MailTracker",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "J David Baker",
-            "email": "me@jdavidbaker.com",
-            "homepage": "http://www.jdavidbaker.com",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "J David Baker",
+        "email": "me@jdavidbaker.com",
+        "homepage": "http://www.jdavidbaker.com",
+        "role": "Developer"
+    }],
     "require": {
         "php": ">=7.2.0",
         "illuminate/support": "~7.0|~8.0",
@@ -26,7 +24,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "~8.0",
-        "orchestra/testbench": "~5.0",
+        "orchestra/testbench": "~5.0|~6.0",
         "mockery/mockery": "^1.1"
     },
     "suggest": {
@@ -46,9 +44,6 @@
         "test": "phpunit"
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        },
         "laravel": {
             "providers": [
                 "jdavidbakr\\MailTracker\\MailTrackerServiceProvider"
